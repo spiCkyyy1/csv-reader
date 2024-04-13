@@ -7,6 +7,25 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## How To Setup:
+- Install Docker Desktop.
+- Clone the repository.
+- Make sure to have the .env file.
+- sail up -d to start the containerization.
+- sail composer install
+- sail php artisan migrate
+- sail npm install
+- sail npm run dev
+- Navigate to localhost on your browser.
+
+## Technology Stack:
+- Laravel v11.
+- Inertia JS.
+- Vue 3.
+- Bootstrap 5.
+- Docker using Laravel Sail.
+
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
