@@ -16,6 +16,7 @@ function submit() {
 
 const props = defineProps(['data', 'errors'])
 
+//common function of  regular expression to match titles
 function titlesRegex() {
     return /\b(?:Mr|Mrs|Ms|Dr|Prof|Mister|and|or|&)\.?\b/gi;
 }
@@ -66,6 +67,7 @@ function findInitials(str) {
     //Define a regular expression pattern to match single character or string containing period
     var regex = /^[A-Za-z]\.?$/;
 
+    //if the first index of word matches with the regular expression, return it otherwise return null
     if (regex.test(words[0])) {
         return words[0];
     }
@@ -74,37 +76,39 @@ function findInitials(str) {
 </script>
 
 <template>
-    <Head title="Welcome"/>
-    <h1>Csv Reader</h1>
-    <form @submit.prevent="submit">
-        <div class="input-group mb-3">
-            <label for="formFile" class="input-group-text">Upload CSV</label>
-            <input type="file" id="formFile" class="form-control" @input="form.csv = $event.target.files[0]"/>
-            <progress v-if="form.progress" :value="form.progress.percentage" max="100">
-                {{ form.progress.percentage }}%
-            </progress>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-        <div class="p-3 text-danger-emphasis bg-danger-subtle border border-danger-subtle rounded-3" v-if="props.errors.csv">{{ errors.csv }}</div>
-    </form>
-    <table class="table table-hover" v-if="props.data.length">
-        <thead>
-        <tr>
-            <th scope="col">Full Name</th>
-            <th>Title</th>
-            <th>Initial</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="(owner, index) in props.data" :key="index">
-            <td>{{ owner }}</td>
-            <td>{{ findTitle(owner).join(", ") }}</td>
-            <td>{{ findInitials(owner) }}</td>
-            <td>{{ findFirstNames(owner) }}</td>
-            <td>{{ owner.split(' ').slice(-1).join(' ') }}</td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="container-fluid">
+        <Head title="Welcome"/>
+        <h1>Csv Reader</h1>
+        <form @submit.prevent="submit">
+            <div class="input-group mb-3">
+                <label for="formFile" class="input-group-text">Upload CSV</label>
+                <input type="file" id="formFile" class="form-control" @input="form.csv = $event.target.files[0]"/>
+                <progress v-if="form.progress" :value="form.progress.percentage" max="100">
+                    {{ form.progress.percentage }}%
+                </progress>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+            <div class="p-3 text-danger-emphasis bg-danger-subtle border border-danger-subtle rounded-3" v-if="props.errors.csv">{{ errors.csv }}</div>
+        </form>
+        <table class="table table-hover" v-if="props.data.length">
+            <thead>
+            <tr>
+                <th scope="col">Full Name</th>
+                <th>Title</th>
+                <th>Initial</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="(owner, index) in props.data" :key="index">
+                <td>{{ owner }}</td>
+                <td>{{ findTitle(owner).join(", ") }}</td>
+                <td>{{ findInitials(owner) }}</td>
+                <td>{{ findFirstNames(owner) }}</td>
+                <td>{{ owner.split(' ').slice(-1).join(' ') }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </template>
