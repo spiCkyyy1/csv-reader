@@ -18,8 +18,8 @@ class HandleUpload extends Controller
             ],
         ]);
 
-        $array = Excel::toArray(new UsersImport, request()->file('csv'));
-        array_walk_recursive($array, function($data) {
+        $users = Excel::toArray(new UsersImport, request()->file('csv'));
+        array_walk_recursive($users, function($data) {
             $this->homeowners[] = $data;
         });
         return inertia('Welcome', ['data' => $this->homeowners]);
