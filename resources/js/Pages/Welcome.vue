@@ -14,7 +14,7 @@ function submit() {
     })
 }
 
-const props = defineProps(['data'])
+const props = defineProps(['data', 'errors'])
 
 function titlesRegex() {
     return /\b(?:Mr|Mrs|Ms|Dr|Prof|Mister|and|or|&)\.?\b/gi;
@@ -77,14 +77,17 @@ function findInitials(str) {
     <Head title="Welcome"/>
     <h1>Csv Reader</h1>
     <form @submit.prevent="submit">
-        <input type="file" @input="form.csv = $event.target.files[0]"/>
-        <progress v-if="form.progress" :value="form.progress.percentage" max="100">
-            {{ form.progress.percentage }}%
-        </progress>
-        <button type="submit">Submit</button>
+        <div class="input-group mb-3">
+            <label for="formFile" class="input-group-text">Upload CSV</label>
+            <input type="file" id="formFile" class="form-control" @input="form.csv = $event.target.files[0]"/>
+            <progress v-if="form.progress" :value="form.progress.percentage" max="100">
+                {{ form.progress.percentage }}%
+            </progress>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        <div class="p-3 text-danger-emphasis bg-danger-subtle border border-danger-subtle rounded-3" v-if="props.errors.csv">{{ errors.csv }}</div>
     </form>
-    <span>Please upload the csv file.</span>
-    <table class="table" v-if="props.data.length">
+    <table class="table table-hover" v-if="props.data.length">
         <thead>
         <tr>
             <th scope="col">Full Name</th>
