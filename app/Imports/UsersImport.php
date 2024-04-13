@@ -11,6 +11,7 @@ class UsersImport implements WithStartRow, WithChunkReading
     {
         return 2;
     }
+    //defining the size of chunk to read file for memory optimization
     public function chunkSize(): int
     {
         return 5;
